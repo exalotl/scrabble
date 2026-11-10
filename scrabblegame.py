@@ -92,7 +92,7 @@ random.shuffle(bag)
 rack = [["-"], []]
 tile_size = 40
 font_colour = (0, 0, 0)
-gridx = screen.width // 2 - (7.5*tile_size)
+gridx = screen.get_width() // 2 - (7.5*tile_size)
 gridy = 100
 leavingposx = 0
 leavingposy = 0
@@ -237,14 +237,14 @@ def refreshtiles():
 
     tiles[1] = []
     for i in range(len(rack[1])):
-        tiles[1].append(Tile(rack[1][i], screen.width - (50 * i) - 60, racky))
+        tiles[1].append(Tile(rack[1][i], screen.get_width() - (50 * i) - 60, racky))
 
 def putback():
     for i in range(len(tiles[curplayer])):
         if curplayer == 0:
             tiles[curplayer][i].Rect.x = 50 * i
         else:
-            tiles[curplayer][i].Rect.x = screen.width - (50 * i) - 60
+            tiles[curplayer][i].Rect.x = screen.get_width() - (50 * i) - 60
         tiles[curplayer][i].Rect.y = racky
 
 
@@ -355,13 +355,13 @@ while running:
     #render buttons / other
     submitbutton = TextSquare("Submit", "white", 600, 70)
     rendertextobject(submitbutton, (128, 58, 45))
-    playerdisplay = TextSquare("Player " + str(curplayer+1) + " turn", font_colour, screen.width // 2, 20)
+    playerdisplay = TextSquare("Player " + str(curplayer+1) + " turn", font_colour, screen.get_width() // 2, 20)
     rendertextobject(playerdisplay, bgcolour)
     infobox = TextSquare(infoboxtext, font_colour, 200, 70)
     rendertextobject(infobox, bgcolour)
     p1pointdisplay = TextSquare("P1 Points: " + str(playerpoints[0]), font_colour, 80, 20)
     rendertextobject(p1pointdisplay, bgcolour)
-    p2pointdisplay = TextSquare("P2 Points: " + str(playerpoints[1]), font_colour, screen.width - 80, 20)
+    p2pointdisplay = TextSquare("P2 Points: " + str(playerpoints[1]), font_colour, screen.get_width() - 80, 20)
     rendertextobject(p2pointdisplay, bgcolour)
     skipbutton = TextSquare("Skip", "white", 500, 70)
     rendertextobject(skipbutton, (50, 58, 45))
