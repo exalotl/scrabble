@@ -1,0 +1,2 @@
+ignore this folder
+it is what i was using before github version history

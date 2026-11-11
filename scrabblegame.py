@@ -60,11 +60,15 @@ grid = [["" for i in range(15)] for j in range(15)]
 newgrid = copy.deepcopy(grid)
 blankpos = [[False for i in range(15)] for j in range(15)]
 
+modifiers = [[0 for i in range(15)] for j in range(15)]
+
 score = {"A":1, "B":3, "C":3, "D":2, "E":1, "F":4, 
          "G":2, "H":4, "I":1, "J":8, "K":5, "L":1,
          "M":3, "N":1, "O":1, "P":3, "Q":10, "R":1,
          "S":1, "T":1, "U":1, "V":4, "W":4, "X":8,
          "Y":4, "Z":10, "-":0}
+
+
 bag = [
     "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", 
     "A", "A", "A", "A", "A", "A", "A", "A", "A", 
@@ -82,14 +86,18 @@ bag = [
     "F", "F", "H", "H", "V", "V", "W", "W", "Y", "Y", 
     "K", "J", "X", "Q", "Z",
     "-", "-"
-] # blanks not included for now
+]
+
+
+#bag = ["C", "A", "T", "S", "C", "A", "T", "S", "C", "A", "T", "S", "C", "A", "T", "S", "C", "A", "T", "S"]
+
 
 tiles = [[], []] # p1, p2
 dragging = -1
 
 random.shuffle(bag)
 
-rack = [["-"], []]
+rack = [[], []]
 tile_size = 40
 font_colour = (0, 0, 0)
 gridx = screen.get_width() // 2 - (7.5*tile_size)
@@ -216,9 +224,19 @@ def processgrid(): # return points or -1 if invalid
             infoboxtext = word + " not in word list"
             return -1
         
-    infoboxtext = "Valid move"
+    infoboxtext = "Valid move: +" + str(newpoints)
     return newpoints
-            
+
+def endgame():
+    global infoboxtext
+    if playerpoints[0] > playerpoints[1]:
+        infoboxtext = "END: P1 wins"
+    elif playerpoints[1] > playerpoints[0]:
+        infoboxtext = "END: P2 wins"
+    else:
+        infoboxtext = "END: Draw"
+    running = False
+
 def fillrack(player): # take in 0 or 1
 
     """
@@ -229,6 +247,9 @@ def fillrack(player): # take in 0 or 1
     
     while len(rack[player]) < 7 and len(bag) != 0:
         rack[player].append(bag.pop())
+
+    if len(rack[player]) == 0:
+        endgame()
 
 def refreshtiles():
     tiles[0] = []
@@ -353,18 +374,21 @@ while running:
     # RENDER HERE
 
     #render buttons / other
-    submitbutton = TextSquare("Submit", "white", 600, 70)
-    rendertextobject(submitbutton, (128, 58, 45))
-    playerdisplay = TextSquare("Player " + str(curplayer+1) + " turn", font_colour, screen.get_width() // 2, 20)
-    rendertextobject(playerdisplay, bgcolour)
-    infobox = TextSquare(infoboxtext, font_colour, 200, 70)
-    rendertextobject(infobox, bgcolour)
     p1pointdisplay = TextSquare("P1 Points: " + str(playerpoints[0]), font_colour, 80, 20)
     rendertextobject(p1pointdisplay, bgcolour)
     p2pointdisplay = TextSquare("P2 Points: " + str(playerpoints[1]), font_colour, screen.get_width() - 80, 20)
     rendertextobject(p2pointdisplay, bgcolour)
+    submitbutton = TextSquare("Submit", "white", 600, 70)
+    rendertextobject(submitbutton, (128, 58, 45))
+    playerdisplay = TextSquare("Player " + str(curplayer+1) + " turn", font_colour, screen.get_width() // 2, 20)
+    rendertextobject(playerdisplay, bgcolour)
+    bagdisplay = TextSquare("Tiles left in bag: " + str(len(bag)), font_colour, 100, 50)
+    rendertextobject(bagdisplay, bgcolour)
+    infobox = TextSquare(infoboxtext, font_colour, 200, 80)
+    rendertextobject(infobox, bgcolour)
     skipbutton = TextSquare("Skip", "white", 500, 70)
     rendertextobject(skipbutton, (50, 58, 45))
+
 
     # render grid
     drawgrid()
