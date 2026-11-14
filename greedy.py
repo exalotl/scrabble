@@ -1,4 +1,5 @@
 from dawg import *
+from scrabblegame import *
 
 gaddag = DAWG()
 gaddag.build("wordbank_rpf.txt")
@@ -15,7 +16,7 @@ gaddag.build("wordbank_rpf.txt")
 setup:
 do once for 'across' plays then transpose and do for 'below'
 --- go through every tile, if there are perpendicular tiles (eg. above or below for across play) and mark possible tiles
---- for these tiles, mark how many extra points it would be (don't include tile itself, this get counted during move gen)
+--- [NOW UNNECESSARY] for these tiles, mark how many extra points it would be (don't include tile itself, this get counted during move gen)
 
 move gen:
 do once for across and once for below
@@ -30,3 +31,14 @@ decision:
 after decision made, repeat setup for surrounding tiles of move
 
 """
+
+alphabet = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(" ")
+
+horipossible = [[alphabet for i in range(15)] for j in range(15)] # possible tiles when generating horizontal (from perpendicularly vertical words that would be made)
+vertipossible = [[alphabet for i in range(15)] for j in range(15)] # possible tiles when generating vertical (from perpendicularly horizontal words that would be made)
+
+def markpossible():
+    #######
+
+def movegen(): # find all possible plays
+    #######

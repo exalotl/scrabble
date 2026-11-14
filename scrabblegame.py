@@ -1,3 +1,10 @@
+"""
+self contained, only game ver
+(first implementation)
+
+also bingo / bonnus is wrong - it +50 when word len is 7 not when all tiles used
+"""
+
 ################# initialisation
 import pygame
 import copy
