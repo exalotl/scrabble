@@ -453,11 +453,11 @@ class Game:
 
 
         #bag = ["C", "A", "T", "S", "C", "A", "T", "S", "C", "A", "T", "S", "C", "A", "T", "S", ]
-        self.bag = "B E C A U S E B E C A U S E B E C A U S E".split(" ")
+        #self.bag = "B E C A U S E B E C A U S E B E C A U S E".split(" ")
 
         self.tiles = [[], []] # p1, p2
 
-        #random.shuffle(self.bag)
+        random.shuffle(self.bag)
 
         self.rack = [[], []]
         self.tile_size = 37

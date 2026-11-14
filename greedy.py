@@ -16,7 +16,7 @@ gaddag.build("wordbank_rpf.txt")
 setup:
 do once for 'across' plays then transpose and do for 'below'
 --- go through every tile, if there are perpendicular tiles (eg. above or below for across play) and mark possible tiles
---- [NOW UNNECESSARY] for these tiles, mark how many extra points it would be (don't include tile itself, this get counted during move gen)
+--- for these tiles, mark how many extra points it would be (don't include tile itself, this get counted during move gen)
 
 move gen:
 do once for across and once for below
@@ -38,7 +38,15 @@ horipossible = [[alphabet for i in range(15)] for j in range(15)] # possible til
 vertipossible = [[alphabet for i in range(15)] for j in range(15)] # possible tiles when generating vertical (from perpendicularly horizontal words that would be made)
 
 def markpossible():
-    #######
+    for j in range(15):
+        for i in range(15):
 
 def movegen(): # find all possible plays
     #######
+
+
+#############################################
+class Greedy: ## takes in cur state of board and rack and outputs greedy move
+    def __init__(self, curboard, rack):
+        self.curboard = curboard
+        self.rack = rack
